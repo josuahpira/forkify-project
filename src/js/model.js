@@ -1,7 +1,4 @@
-// import { create } from 'core-js/core/object';
-// import { async } from 'regenerator-runtime';
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
-// import { getJSON, sendJSON } from './helpers.js';
 import { AJAX } from './helpers.js';
 
 export const state = {
@@ -36,7 +33,6 @@ export const loadRecipe = async function (id) {
     const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
     state.recipe = createRecipeObject(data);
 
-    // console.log(state.recipe);
     if (state.bookmarks.some(bookmark => bookmark.id === id))
       state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
@@ -80,7 +76,7 @@ export const getSearchResultPage = function (page = state.search.page) {
 export const updateServings = function (newServings) {
   state.recipe.ingredients.forEach(ing => {
     ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
-    //newQuantity = oldQuantity * newServings / oldServings /// 2 * 8 / 4 = 4
+    //newQuantity = oldQuantity * newServings / oldServings /// formula
   });
 
   state.recipe.servings = newServings;
